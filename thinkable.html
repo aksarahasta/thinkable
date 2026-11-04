@@ -379,6 +379,76 @@
       border-radius: 18px;
     }
 
+        /* Interaktif Grid Board Visual */
+    .game-board-container {
+      background: rgba(255, 255, 255, 0.92);
+      border: 2.5px solid var(--ink);
+      border-radius: 14px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 6px 16px rgba(27, 47, 99, 0.08);
+    }
+    .grid-path-4x3 {
+      display: grid;
+      grid-template-columns: repeat(4, 48px);
+      gap: 5px;
+    }
+    .grid-cell-board {
+      height: 42px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 11px;
+      position: relative;
+    }
+    .grid-cell-board.block {
+      background: repeating-linear-gradient(45deg, var(--line) 0 3px, var(--surface) 3px 6px);
+      color: var(--muted);
+    }
+    .grid-cell-board.start {
+      border-color: var(--pes);
+      background: var(--pes-bg);
+      color: var(--pes);
+    }
+    .grid-cell-board.goal {
+      border-color: var(--ok);
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+
+    /* Matrix Ubin Pola Visual (Bintang, Daun, Ombak) */
+    .pattern-matrix-3x3 {
+      display: grid;
+      grid-template-columns: repeat(3, 50px);
+      gap: 6px;
+    }
+    .pattern-tile-box {
+      height: 46px;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .pattern-tile-box.target-slot {
+      border-style: dashed;
+      border-color: var(--pes);
+      background: var(--pes-bg);
+      color: var(--pes);
+      font-size: 16px;
+    }
+
     /* Layar Screen Containers */
     .screen {
       position: absolute;
@@ -1253,6 +1323,7 @@
       {
         step: 1, pilar: "Dekomposisi", type: "sequence",
         title: "Memisahkan Buah di Keranjang",
+        visual: "fruit-baskets",
         mascots: {
           m1: { id: "m-lumi", name: "Lumi", text: "Kiko, buah apel dan jeruk ini tercampur di satu tempat bersama batu dan daun!" },
           m2: { id: "m-kiko", name: "Kiko", text: "Wah, kita harus memisahkan apel dan jeruk ke keranjang berbeda agar mudah dihitung!" }
@@ -1268,6 +1339,7 @@
       {
         step: 2, pilar: "Pola", type: "single",
         title: "Irama Buah Berulang",
+        visual: "fruit-row",
         mascots: {
           m1: { id: "m-loreng", name: "Loreng", text: "Lihat susunan buah di meja pesta: Apel, Jeruk, Apel, Jeruk, Apel..." },
           m2: { id: "m-lumi", name: "Lumi", text: "Ada irama teratur yang berulang! Buah apa yang datang setelah Apel ini ya?" }
@@ -1282,6 +1354,7 @@
       {
         step: 3, pilar: "Abstraksi", type: "multi",
         title: "Memilih Keranjang yang Penting",
+        visual: "cargo-filter",
         mascots: {
           m1: { id: "m-uhu", name: "Uhu", text: "Keranjang bawaan Kiko terlalu berat! Ada sampah dedaunan yang ikut terbawa." },
           m2: { id: "m-kiko", name: "Kiko", text: "Kita hanya butuh keranjang berisi buah segar untuk dibawa ke pasar seberang." }
@@ -1296,22 +1369,24 @@
       {
         step: 4, pilar: "Algoritma", type: "sequence",
         title: "Rute Kurir Kiko Antar Buah",
+        visual: "grid-path",
         mascots: {
-          m1: { id: "m-kiko", name: "Kiko", text: "Lumi, di depanku ada pagar batu! Bagaimana rute langkahku ke Rumah?" },
-          m2: { id: "m-lumi", name: "Lumi", text: "Turunlah satu langkah ke jalur bebas, lalu jalan lurus dua langkah ke kanan!" }
+          m1: { id: "m-kiko", name: "Kiko", text: "Lumi, lihat petak peta di depanku! Ada kotak pagar abu-abu yang menghalangi jalanku ke Rumah." },
+          m2: { id: "m-lumi", name: "Lumi", text: "Perhatikan petak jalurnya! Turunlah satu langkah ke jalur bebas, lalu jalan lurus dua langkah ke kanan!" }
         },
-        challenge: "Susun 3 langkah algoritma jalan Kiko agar sampai di Rumah tanpa menabrak:",
+        challenge: "Amati peta jalur di bawah. Susun 3 langkah algoritma jalan Kiko agar sampai di Rumah tanpa menabrak pagar:",
         chips: ["⬇ Turun", "➡ Kanan", "➡ Kanan", "⬆ Naik"],
         slots: ["Langkah 1", "Langkah 2", "Langkah 3"],
         correct: ["⬇ Turun", "➡ Kanan", "➡ Kanan"],
-        hint: "Ikuti saran Lumi: Turun dulu melewati halangan, baru belok ke kanan.",
-        explain: "Algoritma: Rangkaian langkah teratur Turun lalu Kanan mengantarkan Kiko tepat di Rumah!",
+        hint: "Kiko mulai dari kiri-atas. Kiko harus Turun dulu agar tidak menabrak kotak pagar abu-abu, lalu Kanan dua kali.",
+        explain: "Algoritma: Rangkaian 3 langkah berurutan (Turun → Kanan → Kanan) membawa Kiko sampai ke Rumah tanpa menabrak halangan!",
         pendingLabel: "Cek (Isi 3 langkah dulu)"
       },
       // Siklus 2
       {
         step: 5, pilar: "Dekomposisi", type: "sequence",
         title: "Pecah Angka Penjumlahan",
+        visual: "number-split",
         mascots: {
           m1: { id: "m-semi", name: "Semi", text: "Menjumlahkan 14 buah apel sekaligus terasa cukup banyak!" },
           m2: { id: "m-lumi", name: "Lumi", text: "Bagi saja angka 14 menjadi bagian puluhan dan bagian satuan dulu, Semi!" }
@@ -1326,17 +1401,18 @@
       },
       {
         step: 6, pilar: "Pola", type: "single",
-        title: "Lompat Angka Penjumlahan",
+        title: "Matriks Ubin Simbolik",
+        visual: "tile-matrix",
         mascots: {
-          m1: { id: "m-loreng", name: "Loreng", text: "Lihat jejak loncatan batu di sungai: 2, 4, 6, 8... Setiap batu selalu bertambah 2!" },
-          m2: { id: "m-kiko", name: "Kiko", text: "Kalau begitu, batu pijakan selanjutnya bertuliskan angka berapa ya?" }
+          m1: { id: "m-loreng", name: "Loreng", text: "Amati matriks ubin 3x3 ini! Setiap baris memiliki 3 bentuk: Bintang ★, Daun ❀, dan Ombak ≈." },
+          m2: { id: "m-kiko", name: "Kiko", text: "Di baris ketiga ada petak bertanda tanya [?]. Ubin manakah yang tepat untuk melengkapinya?" }
         },
-        challenge: "Ikuti pola loncatan (+2) untuk menemukan angka batu berikutnya:",
-        options: ["10", "9", "12"],
+        challenge: "Perhatikan matriks ubin di bawah. Pilih ubin yang tepat untuk mengisi petak kosong [?]:",
+        options: ["Ombak ≈", "Bintang ★", "Daun ❀"],
         correct: 0,
-        hint: "Hitung 8 ditambah 2.",
-        explain: "Pola: Pola bertambah 2 secara konsisten. 8 + 2 = 10!",
-        pendingLabel: "Cek (Pilih angka dulu)"
+        hint: "Setiap baris dan kolom harus memiliki ketiga bentuk (★, ❀, ≈). Bentuk apa yang belum ada di baris terbawah?",
+        explain: "Pola: Baris ketiga sudah memiliki Daun ❀ dan Bintang ★, sehingga ubin yang melengkapinya adalah Ombak ≈!",
+        pendingLabel: "Cek (Pilih ubin dulu)"
       }
     ];
 
@@ -1359,6 +1435,7 @@
         pilar: pName,
         type: pName === "Algoritma" || pName === "Dekomposisi" ? "sequence" : (pName === "Abstraksi" ? "multi" : "single"),
         title: `Petualangan ${pName} Langkah ${i}`,
+        visual: pName === "Algoritma" ? "grid-path" : (pName === "Pola" ? "tile-matrix" : "default"),
         mascots: {
           m1: { id: mPair[0].id, name: mPair[0].name, text: `Kawan, kita menemukan tantangan ${pName} di pos langkah ke-${i} ini!` },
           m2: { id: mPair[1].id, name: mPair[1].name, text: `Mari kita cermati masalahnya bersama agar dapat menemukan jalan keluar yang tepat!` }
@@ -1467,9 +1544,9 @@
           // ==================================================================
           // MODE 1: FULL-SCREEN CINEMATIC DIALOG CUTSCENE (VIDEO GAME STYLE)
           // ==================================================================
-          actBar.style.display = "none"; // Sembunyikan bar tombol cek bawah saat video dialog
-          right.style.display = "none";  // Sembunyikan kolom opsi kanan
-          left.style.flex = "1";         // Jadikan kolom kiri memanjang penuh (full-screen width)
+          actBar.style.display = "none";
+          right.style.display = "none";
+          left.style.flex = "1";
 
           let bubbleHtml = "";
           if (this.dialogIndex === 0) {
@@ -1512,15 +1589,13 @@
                 <button class="ch" style="min-height:32px; padding:2px 12px; font-size:12px" onclick="questionEngine.skipDialogue()">Lewati Cerita ⏩</button>
               </div>
 
-              <!-- Dialog Full Screen Video Game Box -->
               <div class="col ce" style="width:100%; flex:1; justify-content:center">
                 ${bubbleHtml}
               </div>
 
-              <!-- Tombol Navigasi Dialog -->
               <div class="row between" style="width:100%">
                 <span class="sm mu">Dengarkan percakapan mereka untuk menemukan petunjuk soal.</span>
-                <button class="bt" style="min-height:46px; padding:6px 24px" onclick="questionEngine.nextDialogue()">
+                <button class="bt bt-candy" style="min-height:46px; padding:6px 24px" onclick="questionEngine.nextDialogue()">
                   ${this.dialogIndex === 0 ? 'Lanjut Bicara ›' : 'Mulai Tantangan Soal! 🎮'}
                 </button>
               </div>
@@ -1529,46 +1604,98 @@
 
         } else {
           // ==================================================================
-          // MODE 2: TAMPILAN SOAL & OPSI JAWABAN (SETELAH DIALOG SELESAI)
+          // MODE 2: TAMPILAN SOAL & BOARD VISUAL (SETELAH DIALOG SELESAI)
           // ==================================================================
-          actBar.style.display = "flex";  // Tampilkan bar aksi cek bawah
-          right.style.display = "flex";  // Tampilkan kolom opsi kanan
-          left.style.flex = "5";         // Kembalikan proporsi kolom 5:5
-          right.style.flex = "5";
+          actBar.style.display = "flex";
+          right.style.display = "flex";
+          left.style.flex = "5.5";
+          right.style.flex = "4.5";
 
-          // Kolom Kiri: Ringkasan Maskot & Tantangan Soal
-          left.innerHTML = `
-            <div class="cd col rpg-bubble-appear" style="gap:10px; height:100%; justify-content:space-between">
-              <div class="row between">
-                <span class="ch on" style="font-size:11px; min-height:28px; padding:2px 10px">${this.stepData.pilar}</span>
-                <b class="h" style="font-size:16px">${this.stepData.title}</b>
-              </div>
-
-              <!-- Ringkasan Maskot Bersebelahan -->
-              <div class="cd hint" style="padding:8px 12px; border-width:2px; background:var(--bg)">
-                <div class="row" style="gap:10px; align-items:center">
-                  <div class="row" style="gap:4px">
-                    <svg style="width:34px;height:34px"><use href="#${m.m1.id}"/></svg>
-                    <svg style="width:34px;height:34px"><use href="#${m.m2.id}"/></svg>
-                  </div>
-                  <span class="sm mu"><b>${m.m1.name} & ${m.m2.name}</b> telah berdiskusi dan menunggu keputusanmu!</span>
+          // Render Board Visual Khusus Berdasarkan Tipe Soal
+          let boardHtml = "";
+          if (this.stepData.visual === "grid-path") {
+            // Peta Grid Kurir 4x3 (Algoritma S6/S6b)
+            boardHtml = `
+              <div class="game-board-container" style="margin:4px 0">
+                <div class="row between" style="width:100%; font-size:11px; margin-bottom:2px">
+                  <span class="b" style="color:var(--pes)">▶ Mulai (Kiko)</span>
+                  <span class="b" style="color:var(--ok)">Tujuan (Rumah) ★</span>
+                </div>
+                <div class="grid-path-4x3">
+                  <div class="grid-cell-board start">Kiko 🤖</div>
+                  <div class="grid-cell-board block">Pagar ▦</div>
+                  <div class="grid-cell-board"></div>
+                  <div class="grid-cell-board"></div>
+                  <div class="grid-cell-board">Jalur 1</div>
+                  <div class="grid-cell-board">Jalur 2</div>
+                  <div class="grid-cell-board">Jalur 3</div>
+                  <div class="grid-cell-board goal">Rumah 🏠</div>
+                  <div class="grid-cell-board"></div>
+                  <div class="grid-cell-board block">Pagar ▦</div>
+                  <div class="grid-cell-board"></div>
+                  <div class="grid-cell-board"></div>
                 </div>
               </div>
+            `;
+          } else if (this.stepData.visual === "tile-matrix") {
+            // Matriks Ubin 3x3 (Pola G2)
+            boardHtml = `
+              <div class="game-board-container" style="margin:4px 0">
+                <div class="pattern-matrix-3x3">
+                  <div class="pattern-tile-box">★</div>
+                  <div class="pattern-tile-box">❀</div>
+                  <div class="pattern-tile-box">≈</div>
+                  <div class="pattern-tile-box">❀</div>
+                  <div class="pattern-tile-box">≈</div>
+                  <div class="pattern-tile-box">★</div>
+                  <div class="pattern-tile-box">❀</div>
+                  <div class="pattern-tile-box">★</div>
+                  <div class="pattern-tile-box target-slot">[ ? ]</div>
+                </div>
+              </div>
+            `;
+          } else if (this.stepData.visual === "fruit-baskets") {
+            // Dekomposisi Keranjang Buah
+            boardHtml = `
+              <div class="game-board-container" style="margin:4px 0; padding:10px">
+                <div class="row" style="gap:16px; justify-content:center">
+                  <div class="col ce" style="gap:2px">
+                    <span style="font-size:26px">🧺</span>
+                    <span class="sm b">Keranjang 1</span>
+                  </div>
+                  <span class="h" style="color:var(--muted)">+</span>
+                  <div class="col ce" style="gap:2px">
+                    <span style="font-size:26px">🧺</span>
+                    <span class="sm b">Keranjang 2</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
 
-              <!-- Tantangan Cerita -->
-              <div class="cd hint rpg-challenge-ready" style="padding:10px 14px; border-width:2.5px; border-color:var(--pes)">
-                <span class="b" style="color:var(--pes); font-size:12px">PERTANYAAN DARI OBROLAN MEREKA:</span>
-                <p class="b" style="margin-top:4px; font-size:14.5px; line-height:1.4">${this.stepData.challenge}</p>
+          // Kolom Kiri: Tantangan Cerita + Board Interaktif
+          left.innerHTML = `
+            <div class="cd col rpg-bubble-appear" style="gap:6px; height:100%; justify-content:space-between">
+              <div class="row between">
+                <span class="ch on" style="font-size:11px; min-height:26px; padding:2px 10px">${this.stepData.pilar}</span>
+                <b class="h" style="font-size:15px">${this.stepData.title}</b>
+              </div>
+
+              ${boardHtml}
+
+              <div class="cd hint rpg-challenge-ready" style="padding:8px 12px; border-width:2px; border-color:var(--pes)">
+                <span class="b" style="color:var(--pes); font-size:11px">TANTANGAN:</span>
+                <p class="b" style="margin-top:2px; font-size:13.5px; line-height:1.35">${this.stepData.challenge}</p>
               </div>
 
               <div class="row between" style="margin-top:auto">
-                <button class="ch" style="min-height:32px; padding:2px 10px; font-size:11px" onclick="questionEngine.startDialogueCutscene()">↺ Putar Ulang Dialog</button>
-                <span class="sm mu">Tentukan pilihanmu di sebelah kanan ›</span>
+                <button class="ch" style="min-height:30px; padding:2px 8px; font-size:11px" onclick="questionEngine.startDialogueCutscene()">↺ Dialog</button>
+                <span class="sm mu" style="font-size:11px">Pilih jawabanmu di kanan ›</span>
               </div>
             </div>
           `;
 
-          // Kolom Kanan: Opsi Jawaban Bersih Tanpa Elemen yang Menutupi
+          // Kolom Kanan: Opsi Jawaban / Slot Susun
           if (this.stepData.type === "single") {
             right.innerHTML = `
               <div class="cd col rpg-bubble-appear" style="gap:8px; height:100%">
@@ -1599,15 +1726,15 @@
             right.innerHTML = `
               <div class="cd col rpg-bubble-appear" style="gap:6px; height:100%">
                 <span class="b sm">Ketuk chip untuk mengisi slot:</span>
-                <div class="row" style="gap:8px" id="seq-slots-row">
+                <div class="row" style="gap:6px" id="seq-slots-row">
                   ${this.stepData.slots.map((s, idx) => `
-                    <div class="cd dz ce" id="seq-slot-${idx}" style="flex:1; min-height:44px; cursor:pointer" onclick="questionEngine.emptySlot(${idx})">
+                    <div class="cd dz ce" id="seq-slot-${idx}" style="flex:1; min-height:42px; cursor:pointer" onclick="questionEngine.emptySlot(${idx})">
                       <span class="sm mu">${idx + 1}. ${s}</span>
                     </div>
                   `).join('')}
                 </div>
 
-                <span class="sm mu">Pilihan chip (ada pengecoh):</span>
+                <span class="sm mu">Pilihan langkah/chip:</span>
                 <div class="row" style="flex-wrap:wrap; gap:6px">
                   ${this.stepData.chips.map(chip => `
                     <button class="ch" style="font-size:12px; min-height:34px; padding:4px 10px" onclick="questionEngine.pushChip('${chip}')">
@@ -1879,6 +2006,7 @@
   </script>
 </body>
 </html>
+
 
 
 
