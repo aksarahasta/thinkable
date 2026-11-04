@@ -17,3 +17,4 @@ Aplikasi media pembelajaran Berpikir Komputasional (*Computational Thinking* / C
 - `rules.md`: Aturan keras desain (*Design Rules*).
 - `task.md`: Daftar tugas dan pelacak kemajuan.
 - `user-flow (1).md`: Diagram alur navigasi dan mesin evaluasi.
+

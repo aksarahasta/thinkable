@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="utf-8">
@@ -595,12 +595,28 @@
       max-height: 44px;
       overflow: hidden;
     }
+    .icon-lg {
       width: 24px; height: 24px;
       stroke-width: 2.5px; fill: none; stroke: currentColor;
       stroke-linecap: round; stroke-linejoin: round;
       display: inline-block; vertical-align: middle; flex-shrink: 0;
     }
-      /* Animasi RPG Video Game Cutscene untuk Percakapan Maskot */
+          /* Animasi Partikel Konfeti Kemenangan Ramah Anak (Tanpa Skor) */
+    @keyframes confettiFall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(160px) rotate(360deg); opacity: 0; }
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      animation: confettiFall 2.2s ease-out forwards;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    /* Animasi RPG Video Game Cutscene untuk Percakapan Maskot */
     @keyframes rpgBubbleIn {
       0% { opacity: 0; transform: translateY(8px) scale(0.96); }
       100% { opacity: 1; transform: translateY(0) scale(1); }
@@ -1651,6 +1667,32 @@
 ];
 
     class QuestionEngine {
+      speakText(text) {
+        if (!window.speechSynthesis || !appStore.state.settings.volume) return;
+        try {
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(text);
+          utter.lang = "id-ID";
+          utter.rate = 0.95;
+          window.speechSynthesis.speak(utter);
+        } catch(e) {}
+      }
+
+      triggerCelebration() {
+        const stage = document.getElementById("stage");
+        if (!stage || appStore.state.settings.reduceMotion) return;
+        const colors = ["#FF7675", "#FDCB6E", "#00CEC9", "#6C5CE7", "#2ECC71"];
+        for (let i = 0; i < 24; i++) {
+          const piece = document.createElement("div");
+          piece.className = "confetti-piece";
+          piece.style.left = (Math.random() * 85 + 5) + "%";
+          piece.style.top = (Math.random() * 20) + "px";
+          piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          piece.style.animationDelay = (Math.random() * 0.4) + "s";
+          stage.appendChild(piece);
+          setTimeout(() => piece.remove(), 2600);
+        }
+      }
       constructor() {
         this.stepData = null;
         this.attempt = 1;
@@ -1719,8 +1761,8 @@
           this.dialogIndex++;
           this.renderQuestionPanes();
           this.updateCheckButtonState();
-          if (this.dialogIndex === 2) {
-            audioSynth.playSuccess(); // Fanfare saat soal terbuka!
+          if (this.dialogIndex === 2) { this.speakText(this.stepData.challenge);
+            audioSynth.playSuccess(); this.triggerCelebration(); this.speakText(this.stepData.explain); // Fanfare saat soal terbuka!
           }
         }
       }
@@ -1730,7 +1772,7 @@
         this.dialogIndex = 2;
         this.renderQuestionPanes();
         this.updateCheckButtonState();
-        audioSynth.playSuccess();
+        audioSynth.playSuccess(); this.triggerCelebration(); this.speakText(this.stepData.explain);
       }
 
       renderQuestionPanes() {
@@ -1990,7 +2032,7 @@
 
         if (isCorrect) {
           // BENAR (Percobaan 1 atau 2)
-          audioSynth.playSuccess();
+          audioSynth.playSuccess(); this.triggerCelebration(); this.speakText(this.stepData.explain);
           actBar.style.display = "none";
           const title = this.attempt === 1 && !this.usedHint ? STR.feedback.correct1 : STR.feedback.correct2;
 
@@ -2205,6 +2247,7 @@
   </script>
 </body>
 </html>
+
 
 
 
