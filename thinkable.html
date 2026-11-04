@@ -1319,13 +1319,15 @@
        6. KURIKULUM & BANK SOAL (20 LANGKAH DENGAN ROTASI CT 4-TAHAP)
        -------------------------------------------------------------------------- */
     const QUESTIONS_DATA = [
-      // Siklus 1 - Modul Pertambahan (Jenjang SD / Dasar)
+      // ======================================================================
+      // SIKLUS 1 (Langkah 1 - 4)
+      // ======================================================================
       {
         step: 1, pilar: "Dekomposisi", type: "sequence",
         title: "Memisahkan Buah di Keranjang",
         visual: "fruit-baskets",
         mascots: {
-          m1: { id: "m-lumi", name: "Lumi", text: "Kiko, buah apel dan jeruk ini tercampur di satu tempat bersama batu dan daun!" },
+          m1: { id: "m-lumi", name: "Lumi", text: "Kiko, buah apel dan jeruk ini tercampur di satu tempat bersama batu dan daun kering!" },
           m2: { id: "m-kiko", name: "Kiko", text: "Wah, kita harus memisahkan apel dan jeruk ke keranjang berbeda agar mudah dihitung!" }
         },
         challenge: "Bantu Kiko & Lumi memecah dan memasukkan jenis buah ke dalam 2 keranjang yang tepat:",
@@ -1382,7 +1384,10 @@
         explain: "Algoritma: Rangkaian 3 langkah berurutan (Turun → Kanan → Kanan) membawa Kiko sampai ke Rumah tanpa menabrak halangan!",
         pendingLabel: "Cek (Isi 3 langkah dulu)"
       },
-      // Siklus 2
+
+      // ======================================================================
+      // SIKLUS 2 (Langkah 5 - 8)
+      // ======================================================================
       {
         step: 5, pilar: "Dekomposisi", type: "sequence",
         title: "Pecah Angka Penjumlahan",
@@ -1413,43 +1418,237 @@
         hint: "Setiap baris dan kolom harus memiliki ketiga bentuk (★, ❀, ≈). Bentuk apa yang belum ada di baris terbawah?",
         explain: "Pola: Baris ketiga sudah memiliki Daun ❀ dan Bintang ★, sehingga ubin yang melengkapinya adalah Ombak ≈!",
         pendingLabel: "Cek (Pilih ubin dulu)"
-      }
-    ];
-
-    // Data langkah 7-20 percakapan maskot dinamis
-    const pilarRotation = ["Dekomposisi", "Pola", "Abstraksi", "Algoritma"];
-    const mascotPairs = [
-      [{id:"m-lumi", name:"Lumi"}, {id:"m-kiko", name:"Kiko"}],
-      [{id:"m-loreng", name:"Loreng"}, {id:"m-lumi", name:"Lumi"}],
-      [{id:"m-uhu", name:"Uhu"}, {id:"m-kiko", name:"Kiko"}],
-      [{id:"m-semi", name:"Semi"}, {id:"m-lumi", name:"Lumi"}]
-    ];
-
-    for (let i = 7; i <= 20; i++) {
-      const pIdx = (i - 1) % 4;
-      const pName = pilarRotation[pIdx];
-      const mPair = mascotPairs[pIdx];
-
-      QUESTIONS_DATA.push({
-        step: i,
-        pilar: pName,
-        type: pName === "Algoritma" || pName === "Dekomposisi" ? "sequence" : (pName === "Abstraksi" ? "multi" : "single"),
-        title: `Petualangan ${pName} Langkah ${i}`,
-        visual: pName === "Algoritma" ? "grid-path" : (pName === "Pola" ? "tile-matrix" : "default"),
+      },
+      {
+        step: 7, pilar: "Abstraksi", type: "single",
+        title: "Catatan Nota Penjualan Buah",
+        visual: "cargo-filter",
         mascots: {
-          m1: { id: mPair[0].id, name: mPair[0].name, text: `Kawan, kita menemukan tantangan ${pName} di pos langkah ke-${i} ini!` },
-          m2: { id: mPair[1].id, name: mPair[1].name, text: `Mari kita cermati masalahnya bersama agar dapat menemukan jalan keluar yang tepat!` }
+          m1: { id: "m-uhu", name: "Uhu", text: "Ada 3 lembar catatan di meja kasir. Kita hanya butuh total harga buah yang sudah dijumlahkan." },
+          m2: { id: "m-lumi", name: "Lumi", text: "Cari catatan yang langsung memuat angka total pembayaran tanpa corat-coret yang tidak perlu!" }
         },
-        challenge: `Berdasarkan percakapan mereka, selesaikan tantangan berpikir ${pName} ini:`,
-        chips: ["Langkah Utama A", "Langkah Utama B", "Pengecoh C", "Pengecoh D"],
-        slots: ["Bagian 1", "Bagian 2"],
-        options: ["Pilihan 1 (Tepat)", "Pilihan 2", "Pilihan 3"],
-        correct: pName === "Algoritma" || pName === "Dekomposisi" ? ["Langkah Utama A", "Langkah Utama B"] : (pName === "Abstraksi" ? [0, 1] : 0),
-        hint: "Fokus pada inti masalah yang dibicarakan kedua maskot.",
-        explain: `${pName}: Hebat! Kamu berhasil memecahkan masalah bersama kawan maskot dengan cara berpikir ${pName}.`,
-        pendingLabel: pName === "Algoritma" || pName === "Dekomposisi" ? "Cek (Isi 2 slot dulu)" : "Cek (Pilih jawaban dulu)"
-      });
-    }
+        challenge: "Pilih catatan yang memuat informasi inti transaksi buah secara jelas:",
+        options: ["Nota Resmi: Total Belanja Buah", "Kertas Coretan Gambar Bunga", "Daftar Harga Tahun Lalu"],
+        correct: 0,
+        hint: "Pilih dokumen resmi yang berisi jumlah belanja hari ini.",
+        explain: "Abstraksi: Menyaring dokumen inti yang valid dan mengabaikan kertas coretan tidak relevan.",
+        pendingLabel: "Cek (Pilih catatan dulu)"
+      },
+      {
+        step: 8, pilar: "Algoritma", type: "sequence",
+        title: "Urutan Menimbang Buah",
+        visual: "scale-balance",
+        mascots: {
+          m1: { id: "m-semi", name: "Semi", text: "Lumi, bagaimana langkah teratur menimbang keranjang apel dengan timbangan kayu?" },
+          m2: { id: "m-lumi", name: "Lumi", text: "Pertama letakkan keranjang, kedua taruh anak timbangan, ketiga baca jarum angkanya!" }
+        },
+        challenge: "Susun 3 langkah logis prosedur menimbang buah agar hasilnya akurat:",
+        chips: ["1. Letakkan Keranjang", "2. Taruh Anak Timbang", "3. Baca Angka Timbangan", "Makan Buahnya Dulu"],
+        slots: ["Langkah 1", "Langkah 2", "Langkah 3"],
+        correct: ["1. Letakkan Keranjang", "2. Taruh Anak Timbang", "3. Baca Angka Timbangan"],
+        hint: "Mulailah dari menyiapkan wadah, menyeimbangkan timbangan, lalu membaca hasilnya.",
+        explain: "Algoritma: Prosedur operasional yang terstruktur memastikan pengukuran buah berlangsung tepat!",
+        pendingLabel: "Cek (Isi 3 langkah dulu)"
+      },
+
+      // ======================================================================
+      // SIKLUS 3 (Langkah 9 - 12)
+      // ======================================================================
+      {
+        step: 9, pilar: "Dekomposisi", type: "sequence",
+        title: "Membagi Tahapan Memetik Buah",
+        visual: "fruit-baskets",
+        mascots: {
+          m1: { id: "m-semi", name: "Semi", text: "Pohon apel ini sangat lebat! Kita tidak bisa memetik semuanya sekaligus tanpa rencana." },
+          m2: { id: "m-kiko", name: "Kiko", text: "Mari kita bagi tugasnya: ambil tangga, petik buah yang matang, lalu rapikan ke kotak!" }
+        },
+        challenge: "Bagi proses memetik buah menjadi 3 langkah bagian kecil:",
+        chips: ["1. Siapkan Tangga Kayu", "2. Petik Apel Matang", "3. Masukkan ke Kotak", "Tebang Pohonnya"],
+        slots: ["Langkah A", "Langkah B", "Langkah C"],
+        correct: ["1. Siapkan Tangga Kayu", "2. Petik Apel Matang", "3. Masukkan ke Kotak"],
+        hint: "Mulai dari persiapan alat, pemetikan, hingga penyimpanan.",
+        explain: "Dekomposisi: Memecah tugas besar memetik kebun menjadi 3 sub-pekerjaan ringan membuat kerja kelompok efektif!",
+        pendingLabel: "Cek (Isi 3 tahapan dulu)"
+      },
+      {
+        step: 10, pilar: "Pola", type: "sequence",
+        title: "Batu Pijakan Sungai Berpola",
+        visual: "stepping-stones",
+        mascots: {
+          m1: { id: "m-loreng", name: "Loreng", text: "Sungai ini dalam, tapi ada batu pijakan berpola: Bulat, Kotak, Bulat, Kotak..." },
+          m2: { id: "m-lumi", name: "Lumi", text: "Dua batu di depan kita masih kosong! Batu berbentuk apa yang harus kita pasang?" }
+        },
+        challenge: "Lengkapi 2 batu pijakan yang kosong mengikuti pola irama bentuk:",
+        chips: ["Batu Bulat ●", "Batu Kotak ■", "Batu Segitiga ▲", "Batu Runcing"],
+        slots: ["Batu 1", "Batu 2"],
+        correct: ["Batu Bulat ●", "Batu Kotak ■"],
+        hint: "Setelah batu Kotak datang batu Bulat, lalu Kotak lagi.",
+        explain: "Pola: Pola berulang dua bentuk (●, ■, ●, ■) memungkinkan kita menyeberangi sungai dengan aman!",
+        pendingLabel: "Cek (Isi 2 batu dulu)"
+      },
+      {
+        step: 11, pilar: "Abstraksi", type: "multi",
+        title: "Alat Utama Berjualan di Pasar",
+        visual: "cargo-filter",
+        mascots: {
+          m1: { id: "m-uhu", name: "Uhu", text: "Tas Kiko penuh dengan mainan dan buku cerita, padahal kita mau ke pasar buah!" },
+          m2: { id: "m-kiko", name: "Kiko", text: "Bantu aku memilih 2 alat utama yang wajib dibawa pedagang buah." }
+        },
+        challenge: "Pilih 2 alat paling krusial untuk berjualan buah di pasar:",
+        options: ["Timbangan Buah", "Daftar Harga & Uang Kembalian", "Buku Dongeng Malam", "Topi Pesta Ulang Tahun"],
+        correct: [0, 1],
+        hint: "Pilih peralatan yang diperlukan langsung untuk menghitung berat dan pembayaran buah.",
+        explain: "Abstraksi: Mengabaikan barang rekreasi dan hanya membawa alat esensial bisnis.",
+        pendingLabel: "Cek (Pilih 2 alat)"
+      },
+      {
+        step: 12, pilar: "Algoritma", type: "single",
+        title: "Arah Jalan Kurir Kiko",
+        visual: "grid-path",
+        mascots: {
+          m1: { id: "m-kiko", name: "Kiko", text: "Ada tebing batu di sebelah kananku. Arah mana yang harus kuambil pertama kali?" },
+          m2: { id: "m-lumi", name: "Lumi", text: "Lihat petak jalan yang tidak terhalang. Turunlah ke bawah terlebih dahulu!" }
+        },
+        challenge: "Arah mana yang harus diambil Kiko pada langkah pertamanya?",
+        options: ["⬇ Turun (Jalan Terbuka)", "➡ Kanan (Menabrak Tebing)", "⬆ Naik (Keluar Peta)"],
+        correct: 0,
+        hint: "Pilih arah menuju petak putih yang tidak memiliki rintangan tebing.",
+        explain: "Algoritma: Memilih langkah pertama yang valid menentukan keberhasilan seluruh rute jalan!",
+        pendingLabel: "Cek (Pilih arah dulu)"
+      },
+
+      // ======================================================================
+      // SIKLUS 4 (Langkah 13 - 16)
+      // ======================================================================
+      {
+        step: 13, pilar: "Dekomposisi", type: "sequence",
+        title: "Persiapan Adonan Pie Apel",
+        visual: "number-split",
+        mascots: {
+          m1: { id: "m-semi", name: "Semi", text: "Membuat pie apel untuk pesta tampak rumit jika tidak dibagi tahapannya." },
+          m2: { id: "m-loreng", name: "Loreng", text: "Kita bagi jadi 3 bagian: kupas apel, aduk tepung adonan, lalu cetak di loyang!" }
+        },
+        challenge: "Susun 3 langkah persiapan bahan adonan pie apel:",
+        chips: ["1. Kupas & Potong Apel", "2. Aduk Tepung Adonan", "3. Masukkan ke Loyang", "Makan Es Krim"],
+        slots: ["Bagian 1", "Bagian 2", "Bagian 3"],
+        correct: ["1. Kupas & Potong Apel", "2. Aduk Tepung Adonan", "3. Masukkan ke Loyang"],
+        hint: "Mulai dari persiapan isian buah, pembuatan kulit adonan, lalu pencetakan.",
+        explain: "Dekomposisi: Resep makanan besar lebih mudah dimasak jika dibagi menjadi langkah-langkah persiapan terpisah!",
+        pendingLabel: "Cek (Isi 3 bagian dulu)"
+      },
+      {
+        step: 14, pilar: "Pola", type: "single",
+        title: "Pola Potongan Buah di Nampan",
+        visual: "fruit-row",
+        mascots: {
+          m1: { id: "m-loreng", name: "Loreng", text: "Hiasan nampan kue ditata berurutan: Apel, Jeruk, Jeruk, Apel, Jeruk, Jeruk, Apel..." },
+          m2: { id: "m-uhu", name: "Uhu", text: "Satu apel diikuti oleh dua jeruk! Potongan buah apa yang harus ditaruh selanjutnya?" }
+        },
+        challenge: "Berdasarkan pola (1 Apel, 2 Jeruk), tentukan potongan berikutnya setelah Apel:",
+        options: ["Jeruk", "Apel", "Semangka"],
+        correct: 0,
+        hint: "Setelah potongan Apel, selalu datang potongan Jeruk.",
+        explain: "Pola: Irama kelompok (1 Apel, 2 Jeruk). Setelah Apel pertama, selalu datang Jeruk!",
+        pendingLabel: "Cek (Pilih potongan dulu)"
+      },
+      {
+        step: 15, pilar: "Abstraksi", type: "single",
+        title: "Bahan Pokok Resep Kue",
+        visual: "cargo-filter",
+        mascots: {
+          m1: { id: "m-uhu", name: "Uhu", text: "Di dapur ada glitter hiasan dan cat lukis meja. Itu bukan bahan makanan!" },
+          m2: { id: "m-semi", name: "Semi", text: "Kita hanya butuh bahan makanan pokok untuk memanggang pie apel lezat." }
+        },
+        challenge: "Pilih kelompok bahan utama yang benar untuk membuat pie apel:",
+        options: ["Apel Segar, Tepung, dan Mentega", "Cat Lukis Meja dan Kuas", "Pita Hiasan Dinding"],
+        correct: 0,
+        hint: "Pilihlah bahan-bahan yang dapat dimakan dan diolah menjadi kue.",
+        explain: "Abstraksi: Membedakan bahan fungsional resep dari dekorasi ruangan.",
+        pendingLabel: "Cek (Pilih bahan dulu)"
+      },
+      {
+        step: 16, pilar: "Algoritma", type: "sequence",
+        title: "Urutan Memanggang Kue di Dapur",
+        visual: "scale-balance",
+        mascots: {
+          m1: { id: "m-semi", name: "Semi", text: "Oven sudah siap! Bagaimana langkah aman memanggang pie sampai matang?" },
+          m2: { id: "m-kiko", name: "Kiko", text: "Panaskan oven, masukkan loyang kue, lalu atur waktu pemanggangan!" }
+        },
+        challenge: "Susun 3 langkah algoritma memasak kue yang aman dan benar:",
+        chips: ["1. Panaskan Oven", "2. Masukkan Loyang Kue", "3. Tunggu Hingga Matang", "Buka Oven Tanpa Sarung Tangan"],
+        slots: ["Langkah 1", "Langkah 2", "Langkah 3"],
+        correct: ["1. Panaskan Oven", "2. Masukkan Loyang Kue", "3. Tunggu Hingga Matang"],
+        hint: "Pastikan oven sudah panas sebelum memasukkan adonan, lalu tunggu sampai matang.",
+        explain: "Algoritma: Rangkaian instruksi memasak yang teratur menghasilkan kue yang matang sempurna tanpa gosong!",
+        pendingLabel: "Cek (Isi 3 langkah dulu)"
+      },
+
+      // ======================================================================
+      // SIKLUS 5 (Langkah 17 - 20) — PUNCAK MODUL
+      // ======================================================================
+      {
+        step: 17, pilar: "Dekomposisi", type: "sequence",
+        title: "Membagi Porsi Kue Pesta",
+        visual: "number-split",
+        mascots: {
+          m1: { id: "m-lumi", name: "Lumi", text: "Ada 4 meja tamu di pesta. Kita punya 12 potong pie apel besar." },
+          m2: { id: "m-semi", name: "Semi", text: "Bagi adil menjadi 3 porsi per meja agar semua kawan hewan kebagian sama rata!" }
+        },
+        challenge: "Bagi 12 potong kue ke dalam kelompok porsi per meja:",
+        chips: ["Meja 1: 3 Potong", "Meja 2: 3 Potong", "Meja 3: 3 Potong", "Meja 4: 3 Potong", "Semua untuk Sendiri"],
+        slots: ["Porsi A", "Porsi B", "Porsi C", "Porsi D"],
+        correct: ["Meja 1: 3 Potong", "Meja 2: 3 Potong", "Meja 3: 3 Potong", "Meja 4: 3 Potong"],
+        hint: "12 dibagi 4 meja sama dengan 3 potong untuk masing-masing meja.",
+        explain: "Dekomposisi: Membagi jumlah besar menjadi bagian-bagian adil mempermudah distribusi!",
+        pendingLabel: "Cek (Isi 4 porsi dulu)"
+      },
+      {
+        step: 18, pilar: "Pola", type: "single",
+        title: "Susunan Kursi Pesta Melingkar",
+        visual: "tile-matrix",
+        mascots: {
+          m1: { id: "m-loreng", name: "Loreng", text: "Susunan kursi meja utama ditata berpola: Kursi Biru, Kuning, Hijau, Biru, Kuning, Hijau..." },
+          m2: { id: "m-uhu", name: "Uhu", text: "Setelah Kursi Kuning, kursi warna apa yang menyempurnakan siklus meja?" }
+        },
+        challenge: "Tentukan warna kursi berikutnya berdasarkan pola 3 warna berulang:",
+        options: ["Kursi Hijau", "Kursi Biru", "Kursi Merah"],
+        correct: 0,
+        hint: "Perhatikan urutan: Biru -> Kuning -> Hijau.",
+        explain: "Pola: Siklus 3 warna berulang (Biru, Kuning, Hijau). Setelah Kuning selalu datang Hijau!",
+        pendingLabel: "Cek (Pilih warna kursi dulu)"
+      },
+      {
+        step: 19, pilar: "Abstraksi", type: "multi",
+        title: "Hadiah Terbaik untuk Kawan Petualang",
+        visual: "cargo-filter",
+        mascots: {
+          m1: { id: "m-uhu", name: "Uhu", text: "Pesta hampir selesai! Pilih 2 hadiah kenang-kenangan yang paling berkesan untuk kawan-kawan." },
+          m2: { id: "m-lumi", name: "Lumi", text: "Pilihlah sertifikat persahabatan dan bingkai foto kenangan bersama mereka!" }
+        },
+        challenge: "Pilih 2 hadiah paling bermakna untuk menutup petualangan:",
+        options: ["Sertifikat Petualang Cilik", "Bingkai Foto Kenangan Bersama", "Kotak Kardus Kosong", "Batu Kerikil"],
+        correct: [0, 1],
+        hint: "Pilih benda yang memiliki nilai apresiasi dan kenangan persahabatan.",
+        explain: "Abstraksi: Memilih apresiasi bermakna dan membuang benda yang tidak bernilai.",
+        pendingLabel: "Cek (Pilih 2 hadiah)"
+      },
+      {
+        step: 20, pilar: "Algoritma", type: "sequence",
+        title: "Puncak Modul: Upacara Penutupan Pesta",
+        visual: "grid-path",
+        mascots: {
+          m1: { id: "m-lumi", name: "Lumi", text: "Kawan-kawan, kita sampai di langkah ke-20 puncak petualangan Pulau Pertambahan!" },
+          m2: { id: "m-kiko", name: "Kiko", text: "Susun 4 langkah penutupan: kumpulkan kawan, nyalakan kembang api ramah, bagikan kue, lalu berfoto bersama!" }
+        },
+        challenge: "Susun 4 langkah algoritma penutupan pesta petualangan dengan sempurna:",
+        chips: ["1. Kumpulkan Semua Kawan", "2. Bagikan Kue Bersama", "3. Foto Kenangan Pesta", "4. Ucapkan Terima Kasih", "Pulang Tanpa Pamit"],
+        slots: ["Langkah 1", "Langkah 2", "Langkah 3", "Langkah 4"],
+        correct: ["1. Kumpulkan Semua Kawan", "2. Bagikan Kue Bersama", "3. Foto Kenangan Pesta", "4. Ucapkan Terima Kasih"],
+        hint: "Mulai dari berkumpul, berbagi makanan, berfoto bersama, lalu berpamitan hangat.",
+        explain: "Algoritma Puncak: Hebat luar biasa! Rangkaian 4 langkah logis berhasil menutup petualangan Pulau Pertambahan dengan bahagia!",
+        pendingLabel: "Cek (Isi 4 langkah penutupan dulu)"
+      }
+];
 
     class QuestionEngine {
       constructor() {
@@ -2006,6 +2205,7 @@
   </script>
 </body>
 </html>
+
 
 
 
