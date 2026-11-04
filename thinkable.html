@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>ThinkAble â€” Petualangan Berpikir Komputasional</title>
+  <title>ThinkAble — Petualangan Berpikir Komputasional</title>
   <!-- Google Fonts: Fredoka (Headings/Buttons) & Atkinson Hyperlegible (Body/Instructions) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -716,7 +716,7 @@
             <svg style="width:54px;height:54px"><use href="#m-kiko"/></svg>
           </div>
           <p class="h" style="font-size:18px; color:var(--muted)">Belajar Berpikir Komputasional dengan Gembira!</p>
-          <div class="sm mu" style="margin-top:14px; animation:pulse 1.5s infinite">Ketuk di mana saja untuk mulai â€º</div>
+          <div class="sm mu" style="margin-top:14px; animation:pulse 1.5s infinite">Ketuk di mana saja untuk mulai ›</div>
         </div>
       </section>
 
@@ -739,7 +739,7 @@
           <!-- Tengah: Judul Aplikasi -->
           <h2 class="t">ThinkAble</h2>
 
-          <!-- Kanan: Status Login & Tombol Setting âš™ï¸ -->
+          <!-- Kanan: Status Login & Tombol Setting ⚙️ -->
           <div class="row" style="gap:8px">
             <button class="ch" onclick="router.go('S3_LOGIN')" id="home-user-pill" style="max-height:40px; padding:4px 14px; gap:6px">
               <svg class="icon-sm" style="width:18px;height:18px"><use href="#i-user"/></svg>
@@ -755,7 +755,7 @@
           <div class="col ce" style="gap:6px">
             <svg style="width:72px;height:72px"><use href="#m-lumi"/></svg>
             <h3 class="hero-text">Petualangan Pulau Logika</h3>
-            <p class="sm mu">Dekomposisi Â· Pola Â· Abstraksi Â· Algoritma</p>
+            <p class="sm mu">Dekomposisi · Pola · Abstraksi · Algoritma</p>
           </div>
 
           <!-- Tombol Play Besar di Tengah -->
@@ -765,7 +765,7 @@
             </button>
           </div>
 
-          <div class="sm mu">Bebas nilai & tanpa batas waktu Â· Menghargai usahamu</div>
+          <div class="sm mu">Bebas nilai & tanpa batas waktu · Menghargai usahamu</div>
         </div>
       </section>
 
@@ -902,7 +902,7 @@
 
         <div class="fx" style="gap:8px">
           <div class="row between">
-            <span class="b sm" id="s6-cycle-info">Siklus CT 4-Tahap: Dekomposisi â†’ Pola â†’ Abstraksi â†’ Algoritma</span>
+            <span class="b sm" id="s6-cycle-info">Siklus CT 4-Tahap: Dekomposisi → Pola → Abstraksi → Algoritma</span>
             <span class="sm mu">Pilih langkah untuk bermain:</span>
           </div>
 
@@ -913,11 +913,11 @@
 
           <div class="row between" style="margin-top:auto">
             <div class="row" style="gap:12px; font-size:12px">
-              <span class="row" style="gap:4px"><span style="color:var(--ok)">âœ“</span> Selesai</span>
-              <span class="row" style="gap:4px"><span style="color:var(--pes); font-weight:700">â—¯</span> Aktif</span>
-              <span class="row" style="gap:4px"><span style="color:var(--line)">â—‹</span> Belum</span>
+              <span class="row" style="gap:4px"><span style="color:var(--ok)">✓</span> Selesai</span>
+              <span class="row" style="gap:4px"><span style="color:var(--pes); font-weight:700">◎</span> Aktif</span>
+              <span class="row" style="gap:4px"><span style="color:var(--line)">○</span> Belum</span>
             </div>
-            <button class="bt" id="s6-btn-play-current" onclick="playCurrentStep()">Mainkan Langkah Aktif â€º</button>
+            <button class="bt" id="s6-btn-play-current" onclick="playCurrentStep()">Mainkan Langkah Aktif ›</button>
           </div>
         </div>
       </section>
@@ -1011,7 +1011,7 @@
         <div class="dialog-box">
           <div class="row between">
             <h3 class="h" style="font-size:18px"><svg class="icon-sm"><use href="#i-gear"/></svg> Pengaturan Aksesibilitas</h3>
-            <button class="ch" style="min-height:36px; padding:2px 10px" onclick="dialogManager.closeSettings()">âœ• Tutup</button>
+            <button class="ch" style="min-height:36px; padding:2px 10px" onclick="dialogManager.closeSettings()">✕ Tutup</button>
           </div>
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
@@ -1028,7 +1028,7 @@
             <!-- Getar Toggle -->
             <div class="cd row between">
               <span class="b sm">Getar (Haptic):</span>
-              <button id="opt-haptic" class="ch on" onclick="appStore.toggleSetting('haptic')">âœ“ Aktif</button>
+              <button id="opt-haptic" class="ch on" onclick="appStore.toggleSetting('haptic')">✓ Aktif</button>
             </div>
 
             <!-- Mode Tenang -->
@@ -1054,7 +1054,7 @@
           </div>
 
           <div class="row between" style="margin-top:6px">
-            <span class="sm mu">ThinkAble v2.0 Â· Bebas Tekanan</span>
+            <span class="sm mu">ThinkAble v2.0 · Bebas Tekanan</span>
             <button class="bt" style="min-height:40px; padding:4px 16px" onclick="dialogManager.closeSettings()">Selesai</button>
           </div>
         </div>
@@ -1079,7 +1079,7 @@
       <option value="S10">S10 Ringkasan Modul</option>
       <option value="X1">X1 Putar Layar</option>
     </select>
-    <button onclick="dialogManager.openSettings()">âš™ï¸ Setting</button>
+    <button onclick="dialogManager.openSettings()">⚙️ Setting</button>
     <button onclick="appStore.toggleSetting('calm')">Tenang</button>
     <button onclick="appStore.toggleSetting('highContrast')">Kontras</button>
   </aside>
@@ -1096,8 +1096,8 @@
       tagline: "Belajar Berpikir Komputasional dengan Gembira",
       btn: {
         play: "Main Sekarang",
-        next: "Lanjut â€º",
-        back: "â€¹ Kembali",
+        next: "Lanjut ›",
+        back: "‹ Kembali",
         tryAgain: "Coba lagi",
         hint: "Petunjuk",
         check: "Cek",
@@ -1240,22 +1240,22 @@
         const optCalm = document.getElementById("opt-calm");
         if (optCalm) {
           optCalm.className = this.state.settings.calm ? "ch on" : "ch";
-          optCalm.textContent = this.state.settings.calm ? "âœ“ Aktif" : "Mati";
+          optCalm.textContent = this.state.settings.calm ? "✓ Aktif" : "Mati";
         }
         const optContrast = document.getElementById("opt-contrast");
         if (optContrast) {
           optContrast.className = this.state.settings.highContrast ? "ch on" : "ch";
-          optContrast.textContent = this.state.settings.highContrast ? "âœ“ Aktif" : "Mati";
+          optContrast.textContent = this.state.settings.highContrast ? "✓ Aktif" : "Mati";
         }
         const optMotion = document.getElementById("opt-motion");
         if (optMotion) {
           optMotion.className = this.state.settings.reduceMotion ? "ch on" : "ch";
-          optMotion.textContent = this.state.settings.reduceMotion ? "âœ“ Aktif" : "Mati";
+          optMotion.textContent = this.state.settings.reduceMotion ? "✓ Aktif" : "Mati";
         }
         const optHaptic = document.getElementById("opt-haptic");
         if (optHaptic) {
           optHaptic.className = this.state.settings.haptic ? "ch on" : "ch";
-          optHaptic.textContent = this.state.settings.haptic ? "âœ“ Aktif" : "Mati";
+          optHaptic.textContent = this.state.settings.haptic ? "✓ Aktif" : "Mati";
         }
 
         ["A", "A+", "A++"].forEach(s => {
@@ -1711,7 +1711,7 @@
         this.selectedSingle = null;
 
         // Reset UI Header
-        document.getElementById("soal-header-title").textContent = `Langkah ${this.stepData.step} dari 20 Â· ${this.stepData.pilar}`;
+        document.getElementById("soal-header-title").textContent = `Langkah ${this.stepData.step} dari 20 · ${this.stepData.pilar}`;
         document.getElementById("soal-hint-box").style.display = "none";
         document.getElementById("soal-feedback-box").style.display = "none";
         document.getElementById("soal-action-bar").style.display = "flex";
@@ -2045,7 +2045,7 @@
                 <p class="sm">${this.stepData.explain}</p>
               </div>
             </div>
-            <button class="bt" onclick="questionEngine.handleNextStep()">Lanjut â€º</button>
+            <button class="bt" onclick="questionEngine.handleNextStep()">Lanjut ›</button>
           `;
           // Catat langkah selesai
           if (!appStore.state.progress.pulau_pertambahan.completedSteps.includes(this.stepData.step)) {
@@ -2083,7 +2083,7 @@
                   <p class="sm">${this.stepData.explain}</p>
                 </div>
               </div>
-              <button class="bt" onclick="questionEngine.handleNextStep()">Lanjut â€º</button>
+              <button class="bt" onclick="questionEngine.handleNextStep()">Lanjut ›</button>
             `;
             actBar.style.display = "none";
           }
